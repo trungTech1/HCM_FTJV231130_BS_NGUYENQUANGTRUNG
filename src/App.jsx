@@ -80,10 +80,6 @@ const App = () => {
     dispatch(jobActions.getJobs());
   }, [dispatch]);
 
-  // const handleCheckboxChange = (id) => {
-  //   dispatch(jobActions.updateJob(id));
-  // };
-
   return (
     <>
       <link
@@ -175,7 +171,9 @@ const App = () => {
                                 }
                               />
                               <label
-                                className="form-check-label"
+                                className={`form-check-label ${
+                                  job.status === "completed" ? "completed" : ""
+                                }`}
                                 htmlFor="form1"
                               >
                                 {job.name}
