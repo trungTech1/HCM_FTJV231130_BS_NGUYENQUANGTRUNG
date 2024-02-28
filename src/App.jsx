@@ -11,6 +11,7 @@ const App = () => {
   const [activeTab, setActiveTab] = useState("all"); // Thêm state cho tab
   const [JobToDelete, setJobToDelete] = useState(null);
   const [showAlertModal, setShowAlertModal] = useState(false);
+  const [selectedJobName, setSelectedJobName] = useState("");
 
   const jobsData = jobs.jobs.filter((job) => {
     if (activeTab === "completed") {
@@ -70,9 +71,10 @@ const App = () => {
       console.error("Error", error);
     }
   };
-  const deleteJob = (id) => {
+  const deleteJob = (id, name) => {
     setShowDeleteModal(true);
     setJobToDelete(id);
+    setSelectedJobName(name);
   };
   useEffect(() => {
     dispatch(jobActions.getJobs());
@@ -183,7 +185,7 @@ const App = () => {
                               <button
                                 type="button"
                                 className="btn btn-danger"
-                                onClick={() => deleteJob(job.id)}
+                                onClick={() => deleteJob(job.id, job.name)}
                               >
                                 Xóa
                               </button>
@@ -213,7 +215,7 @@ const App = () => {
             <i className="fas fa-xmark"></i>
           </div>
           <div className="modal-body-custom">
-            <p>Bạn chắc chắn muốn xóa công việc quét nhà?</p>
+            <p>Bạn chắc chắn muốn xóa công việc {selectedJobName}?</p>
           </div>
           <div className="modal-footer-footer">
             <button
